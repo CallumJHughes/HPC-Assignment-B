@@ -1,6 +1,6 @@
 ## Description
 
-This README file is a test.
+This is my Assignment B for my High-Performance Computing module in stage four.
 
 ## Compilation
 
