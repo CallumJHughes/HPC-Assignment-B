@@ -157,9 +157,9 @@ program main
 
 		if (rank == num_procs-1) haloRight = 0 ! Assigns halo right data in right processor to 0 (Right-hand side boundary of system)
 
-		!**************************************************!
-		! Upate all data in system chunk for each processor!
-		!**************************************************!
+		!***************************************************!
+		! Upate all data in system chunk for each processor !
+		!***************************************************!
 		do k = 1 + (rank*(sysWidth/num_procs)), ((sysWidth/num_procs)*(rank+1))
 			do i = 1, sysHeight
 				if (systemChunk(i,k) == phi) then
@@ -230,6 +230,8 @@ program main
 		print *, "Point A:", system(int(8.5*scaleFactor),1) 				   ! Point(7.5,0)
 		print *, "Point B:", system(int(6*scaleFactor),int(7*scaleFactor))	   ! Point(5,6)
 		print *, "Point C:", system(int(13.5*scaleFactor),int(6*scaleFactor))  ! Point(12.5,5)
+		print *, "Point A kinda:", system(150,1)
+		print *, "Average for", num_procs, "processors:", sum(system)/size(system)
 		do i = 1, sysHeight
 			print *, system(i,1)
 		end do
@@ -271,7 +273,7 @@ contains
 	!!! Function to update the new value for the potential at that point !!!
 		real(kind=dp) :: UpdatedPotential
 		real(kind=dp), intent(in) :: U, phiOld
-		real(kind=dp), parameter :: w = 1.5 ! Defines the rate of convergence to the solution
+		real(kind=dp), parameter :: w = 1.0 ! Defines the rate of convergence to the solution
 
 		UpdatedPotential = phiOld + w*(U - phiOld)
 	end function
